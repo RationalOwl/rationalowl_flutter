@@ -55,7 +55,7 @@ class _ApplicationState extends State<Application> with WidgetsBindingObserver {
       _observer = MinervaAppLifecycleObserver();
       WidgetsBinding.instance.addObserver(_observer);
     } else {
-      FirebaseMessaging.onMessage.listen((RemoteMessage message) => handleMessage(message));
+      FirebaseMessaging.onMessage.listen(handleMessage);
       FirebaseMessaging.instance.onTokenRefresh.listen(handleTokenRefresh);
     }
   }

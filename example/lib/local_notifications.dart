@@ -45,23 +45,8 @@ Future<void> initializeNotification() async {
 }
 
 void showNotification(Map<String, dynamic> data) {
-  // hello app custom data format can be any fields you want
-  // this sample app assume below fields
-  /*
-  {
-    "mId": "message id here",
-    "title": "message title here",
-    "body": "message body here",
-    "ii": "image id here"
-    "st": "(message) send time"
-  }
-  */
-
-  // mandatory fields
   final String id = data['mId'];
   final String body = data['body'];
-
-  // optional fields
   final String? title = data['title'];
 
   _localNotificationsPlugin?.show(
