@@ -40,45 +40,47 @@ dependencies {
 
 2. Download the [RationalOwl.framework](https://github.com/RationalOwl/rationalowl_flutter/tree/main/example/ios) directory.
 
-3. Copy the `RationalOwl.framework` directory to the `Runner` project.
+3. Drag and drop the `RationalOwl.framework` directory to the `Runner` project.
+
+4. Select the `Copy items if needed` checkbox, then click `Finish`.
 
 ![ios1](images/ios1.png)
 
-4. Select the `Runner` project, then select the `Runner` target.
+5. Select the `Runner` project, then select the `Runner` target.
 
-5. Open the `Frameworks, Libraries, and Embedded Content` section, then click on the `+` button.
+6. Open the `Frameworks, Libraries, and Embedded Content` section, then click on the `+` button.
 
-6. Click the `Add Files...` menu item, then choose the `RationalOwl.framework` directory.
+7. Click the `Add Files...` menu item, then choose the `RationalOwl.framework` directory.
 
 ![ios2](images/ios2.png)
 
-7. Select the `Signing & Capabilities` tab, then click on the `+ Capability` button.
+8. Select the `Signing & Capabilities` tab, then click on the `+ Capability` button.
 
-8. Add the `Push Notifications` and `Background Modes` capabilities.
+9. Add the `Push Notifications` and `Background Modes` capabilities.
 
-9. In the `Background Modes` capability, enable the `Background fetch` and `Remote notifications` modes.
+10. In the `Background Modes` capability, enable the `Background fetch` and `Remote notifications` modes.
 
 ![ios3](images/ios3.png)
 
-10. Select the `Build Phases` tab, then open the `Link Binary With Libraries` section.
+11. Select the `Build Phases` tab, then open the `Link Binary With Libraries` section.
 
-11. Click on the `+` button.
+12. Click on the `+` button.
 
-12. Choose the `UserNotifications.framework`, then click `Add`.
+13. Choose the `UserNotifications.framework`, then click `Add`.
 
 ![ios4](images/ios4.png)
 
-13. Open the `Embed Frameworks` section, then select the `Copy only when installing` checkbox.
+14. Open the `Embed Frameworks` section, then select the `Copy only when installing` checkbox.
 
 ![ios5](images/ios5.png)
 
-14. Click on the `+` button on the left bottom.
+15. Click on the `+` button on the left bottom.
 
-15. Choose the `Notification Service Extension` template, then click `Next`.
+16. Choose the `Notification Service Extension` template, then click `Next`.
 
 ![ios6](images/ios6.png)
 
-16. Add the `Product Name`, then click `Finish`.
+17. Add the `Product Name`, then click `Finish`.
 
 ![ios7](images/ios7.png)
 
@@ -129,7 +131,6 @@ class _ApplicationState extends State<Application> with WidgetsBindingObserver {
       _observer = MinervaAppLifecycleObserver();
       WidgetsBinding.instance.addObserver(_observer);
     } else {
-      FirebaseMessaging.onMessage.listen(handleMessage);
       FirebaseMessaging.instance.onTokenRefresh.listen(handleTokenRefresh);
     }
   }

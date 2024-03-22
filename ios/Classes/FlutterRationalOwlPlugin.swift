@@ -27,7 +27,7 @@ public class FlutterRationalOwlPlugin: NSObject, FlutterPlugin {
 
     override private init() {
         super.init()
-        NotificationCenter.default.addObserver(self, selector: #selector(application_onDidFinishLaunchingNotification(_:)), name: UIApplication.didFinishLaunchingNotification, object: nil)
+        NSNotificationCenter.default.addObserver(self, selector: #selector(application_onDidFinishLaunchingNotification(_:)), name: UIApplication.didFinishLaunchingNotification, object: nil)
     }
 
     deinit {
@@ -181,6 +181,8 @@ public class FlutterRationalOwlPlugin: NSObject, FlutterPlugin {
         if shouldReplaceDelegate {
             notificationCenter.delegate = self
         }
+
+        UIApplication.shared.registerForRemoteNotifications()
     }
 }
 

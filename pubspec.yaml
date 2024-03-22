@@ -2,7 +2,7 @@ name: rationalowl_flutter
 description: "Flutter plugin for RationalOwl, a realtime mobile messaging service"
 homepage: https://www.rationalowl.com
 repository: https://github.com/RationalOwl/rationalowl_flutter
-version: 1.0.0
+version: 1.0.1
 
 false_secrets:
   - example/**

@@ -14,7 +14,7 @@ Future<void> handleTokenRefresh(String token) async {
 
 @pragma('vm:entry-point')
 Future<void> handleMessage(RemoteMessage message) async {
-  log('handleMessage(message: ${message.data})');
+  log('handleMessage(message.data: ${message.data})');
 
   final Map<String, dynamic> data = message.data;
 
