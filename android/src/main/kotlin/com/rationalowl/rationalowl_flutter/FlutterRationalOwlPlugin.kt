@@ -20,6 +20,13 @@ class FlutterRationalOwlPlugin : FlutterPlugin, MethodCallHandler, DeviceRegiste
     private lateinit var channel: MethodChannel
 
     override fun onAttachedToEngine(binding: FlutterPlugin.FlutterPluginBinding) {
+        try {
+            val field: Field = Logger::class.java.getDeclaredField("shouldLog")
+            field.setAccessible(true)
+            field.setBoolean(null, true)
+        } catch (e: Exception) {
+        }
+
         channel = MethodChannel(binding.binaryMessenger, CHANNEL_NAME)
         channel.setMethodCallHandler(this)
 

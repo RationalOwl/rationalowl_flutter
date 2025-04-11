@@ -5,7 +5,9 @@ import '../message_listener.dart';
 import '../platform_interface/platform_interface_rationalowl.dart';
 
 class MethodChannelMinervaManager extends MinervaManagerPlatform {
-  static const MethodChannel _channel = MethodChannel('plugins.rationalowl.com/rationalowl_flutter');
+  static const MethodChannel _channel = MethodChannel(
+    'plugins.rationalowl.com/rationalowl_flutter',
+  );
   static MethodChannelMinervaManager? _instance;
 
   static MethodChannelMinervaManager get instance {
@@ -25,31 +27,54 @@ class MethodChannelMinervaManager extends MinervaManagerPlatform {
         case 'DeviceRegisterResultListener#onRegisterResult':
           if (_deviceRegisterResultListener != null) {
             final map = Map<String, dynamic>.from(call.arguments);
-            _deviceRegisterResultListener!.onRegisterResult(map['resultCode'], map['resultMsg'], map['deviceRegId']);
+            _deviceRegisterResultListener!.onRegisterResult(
+              map['resultCode'],
+              map['resultMsg'],
+              map['deviceRegId'],
+            );
           }
           break;
         case 'DeviceRegisterResultListener#onUnregisterResult':
           if (_deviceRegisterResultListener != null) {
             final map = Map<String, dynamic>.from(call.arguments);
-            _deviceRegisterResultListener!.onUnregisterResult(map['resultCode'], map['resultMsg']);
+            _deviceRegisterResultListener!.onUnregisterResult(
+              map['resultCode'],
+              map['resultMsg'],
+            );
           }
           break;
         case 'MessageListener#onDownstreamMsgRecieved':
-          final msgList = call.arguments.map((json) => Map<String, dynamic>.from(json)).toList(growable: false).cast<Map<String, dynamic>>();
+          final msgList =
+              call.arguments
+                  .map((json) => Map<String, dynamic>.from(json))
+                  .toList(growable: false)
+                  .cast<Map<String, dynamic>>();
           _messageListener?.onDownstreamMsgReceived(msgList);
           break;
         case 'MessageListener#onP2PMsgRecieved':
-          final msgList = call.arguments.map((json) => Map<String, dynamic>.from(json)).toList(growable: false).cast<Map<String, dynamic>>();
+          final msgList =
+              call.arguments
+                  .map((json) => Map<String, dynamic>.from(json))
+                  .toList(growable: false)
+                  .cast<Map<String, dynamic>>();
           _messageListener?.onP2PMsgReceived(msgList);
           break;
         case 'MessageListener#onPushMsgRecieved':
-          final msgList = call.arguments.map((json) => Map<String, dynamic>.from(json)).toList(growable: false).cast<Map<String, dynamic>>();
+          final msgList =
+              call.arguments
+                  .map((json) => Map<String, dynamic>.from(json))
+                  .toList(growable: false)
+                  .cast<Map<String, dynamic>>();
           _messageListener?.onPushMsgReceived(msgList);
           break;
         case 'MessageListener#onSendUpstreamMsgResult':
           if (_messageListener != null) {
             final map = Map<String, dynamic>.from(call.arguments);
-            _messageListener!.onSendUpstreamMsgResult(map['resultCode'], map['resultMsg'], map['msgId']);
+            _messageListener!.onSendUpstreamMsgResult(
+              map['resultCode'],
+              map['resultMsg'],
+              map['msgId'],
+            );
           }
           break;
         default:
@@ -58,9 +83,11 @@ class MethodChannelMinervaManager extends MinervaManagerPlatform {
     });
   }
 
-//#region set listener/clear listener
+  //#region set listener/clear listener
   @override
-  Future<void> setRegisterResultListener(DeviceRegisterResultListener listener) async {
+  Future<void> setRegisterResultListener(
+    DeviceRegisterResultListener listener,
+  ) async {
     _deviceRegisterResultListener = listener;
     await _channel.invokeMethod('MinervaManager#setRegisterResultListener');
   }
@@ -83,9 +110,9 @@ class MethodChannelMinervaManager extends MinervaManagerPlatform {
     await _channel.invokeMethod('MinervaManager#clearMsgListener');
   }
 
-//#endregion
+  //#endregion
 
-//#region life cycle
+  //#region life cycle
   @override
   Future<void> becomeActive() async {
     await _channel.invokeMethod('MinervaManager#becomeActive');
@@ -111,7 +138,10 @@ class MethodChannelMinervaManager extends MinervaManagerPlatform {
   }
 
   @override
-  Future<void> enableNotificationTracking({required Map<String, dynamic> data, String? appGroup}) async {
+  Future<void> enableNotificationTracking({
+    required Map<String, dynamic> data,
+    String? appGroup,
+  }) async {
     await _channel.invokeMethod('MinervaManager#enableNotificationTracking', {
       'data': data,
       if (appGroup != null) 'appGroup': appGroup,
@@ -122,7 +152,7 @@ class MethodChannelMinervaManager extends MinervaManagerPlatform {
   Future<void> registerDevice({
     required String gateHost,
     required String serviceId,
-    required String deviceRegName,
+    String? deviceRegName,
   }) async {
     await _channel.invokeMapMethod('MinervaManager#registerDevice', {
       'gateHost': gateHost,
@@ -161,7 +191,13 @@ class MethodChannelMinervaManager extends MinervaManagerPlatform {
   }
 
   @override
-  Future<String?> sendP2PMsg({required String data, required List<String> destDevices, bool supportMsgQ = true, String? notiTitle, String? notiBody}) async {
+  Future<String?> sendP2PMsg({
+    required String data,
+    required List<String> destDevices,
+    bool supportMsgQ = true,
+    String? notiTitle,
+    String? notiBody,
+  }) async {
     return (await _channel.invokeMethod('MinervaManager#sendP2PMsg', {
       'data': data,
       'destDevices': destDevices,
@@ -170,5 +206,6 @@ class MethodChannelMinervaManager extends MinervaManagerPlatform {
       'notiBody': notiBody,
     }))!;
   }
-//#endregion
+
+  //#endregion
 }

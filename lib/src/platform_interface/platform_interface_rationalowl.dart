@@ -21,13 +21,17 @@ abstract class MinervaManagerPlatform extends PlatformInterface {
 
   MinervaManagerPlatform() : super(token: _token);
 
-//#region set listener/clear listener
-  Future<void> setRegisterResultListener(DeviceRegisterResultListener listener) async {
+  //#region set listener/clear listener
+  Future<void> setRegisterResultListener(
+    DeviceRegisterResultListener listener,
+  ) async {
     throw UnimplementedError('setRegisterResultListener() is not implemented');
   }
 
   Future<void> clearRegisterResultListener() async {
-    throw UnimplementedError('clearRegisterResultListener() is not implemented');
+    throw UnimplementedError(
+      'clearRegisterResultListener() is not implemented',
+    );
   }
 
   Future<void> setMsgListener(MessageListener listener) async {
@@ -38,9 +42,9 @@ abstract class MinervaManagerPlatform extends PlatformInterface {
     throw UnimplementedError('clearMsgListener() is not implemented');
   }
 
-//#endregion
+  //#endregion
 
-//#region life cycle
+  //#region life cycle
   Future<void> becomeActive() async {
     throw UnimplementedError('becomeActive() is not implemented');
   }
@@ -67,7 +71,7 @@ abstract class MinervaManagerPlatform extends PlatformInterface {
   Future<void> registerDevice({
     required String gateHost,
     required String serviceId,
-    required String deviceRegName,
+    String? deviceRegName,
   }) async {
     throw UnimplementedError('registerDevice() is not implemented');
   }
@@ -99,5 +103,6 @@ abstract class MinervaManagerPlatform extends PlatformInterface {
   }) async {
     throw UnimplementedError('sendP2PMsg() is not implemented');
   }
-//#endregion
+
+  //#endregion
 }

@@ -1,4 +1,4 @@
-## 1.0.1
+## 1.1.1
 
 * Fixed the iOS plugin and README.md
 

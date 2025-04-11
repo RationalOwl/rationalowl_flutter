@@ -1,6 +1,7 @@
 import Flutter
-import RationalOwl
 import UIKit
+
+import RationalOwl
 
 let channelName = "plugins.rationalowl.com/rationalowl_flutter"
 
@@ -27,7 +28,7 @@ public class FlutterRationalOwlPlugin: NSObject, FlutterPlugin {
 
     override private init() {
         super.init()
-        NSNotificationCenter.default.addObserver(self, selector: #selector(application_onDidFinishLaunchingNotification(_:)), name: UIApplication.didFinishLaunchingNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(application_onDidFinishLaunchingNotification(_:)), name: UIApplication.didFinishLaunchingNotification, object: nil)
     }
 
     deinit {
@@ -181,8 +182,6 @@ public class FlutterRationalOwlPlugin: NSObject, FlutterPlugin {
         if shouldReplaceDelegate {
             notificationCenter.delegate = self
         }
-
-        UIApplication.shared.registerForRemoteNotifications()
     }
 }
 
@@ -195,15 +194,6 @@ extension FlutterRationalOwlPlugin: UIApplicationDelegate {
     public func applicationWillResignActive(_ application: UIApplication) {
         let minMgr = MinervaManager.getInstance()!
         minMgr.enterBackground()
-    }
-
-    public func application(_: UIApplication,
-                            didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data)
-    {
-        let token = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
-
-        let minMgr = MinervaManager.getInstance()!
-        minMgr.setDeviceToken(token)
     }
 }
 
